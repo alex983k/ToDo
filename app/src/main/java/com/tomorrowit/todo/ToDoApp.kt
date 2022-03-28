@@ -4,6 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 class ToDoApp : Application() {
@@ -23,8 +24,8 @@ class ToDoApp : Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger()     //Here we tell Koin that if it has any messages to log, it should use Logcat.
-            modules(koinModule) //Here we can provide one or more modules that we want Koin to support
+            androidLogger(Level.ERROR)  //Here we tell Koin that if it has any messages to log, it should use Logcat.
+            modules(koinModule)         //Here we can provide one or more modules that we want Koin to support
         }
     }
 }
