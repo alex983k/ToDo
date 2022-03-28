@@ -27,7 +27,16 @@ class RosterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = RosterAdapter(layoutInflater)
+        //When a function type is the last parameter for a function call, we can use a lambda
+        //expression outside of the function call parentheses. So, the lambda expression that
+        //we have here turns into onCheckboxToggle.
+        val adapter = RosterAdapter(layoutInflater) {
+            //Here, we create the updated model by using copy(), a function added to all Kotlin
+            //data classes. As the name suggests, copy() makes a copy of the immutable object,
+            //except it replaces whatever properties we include as parameters to the copy() call. In
+            //our case, we replace isCompleted with the opposite of its current value.
+            motor.save(it.copy(isCompleted = !it.isCompleted))
+        }
 
         binding?.items?.apply {
             setAdapter(adapter)
