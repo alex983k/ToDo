@@ -27,6 +27,9 @@ android {
         }
     }
     compileOptions {
+        //This is a corresponding library used by this “desugaring” mechanism that supplies implementations of the missing logic on those older devices.
+        //Ex: Using Instant below API 26 (Android Oreo)
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -36,6 +39,9 @@ android {
 }
 
 dependencies {
+    //This is a corresponding library used by this “desugaring” mechanism that supplies implementations of the missing logic on those older devices.
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
