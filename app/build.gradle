@@ -26,6 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         //This is a corresponding library used by this “desugaring” mechanism that supplies implementations of the missing logic on those older devices.
         //Ex: Using Instant below API 26 (Android Oreo)
@@ -33,6 +34,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -42,11 +44,17 @@ dependencies {
     //This is a corresponding library used by this “desugaring” mechanism that supplies implementations of the missing logic on those older devices.
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
+    //RecyclerView libraries for listing UI elements
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
+    //Navigation libraries
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+    //Koin for dependency inversion
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    //Basic libraries
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
