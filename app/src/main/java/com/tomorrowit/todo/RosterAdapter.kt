@@ -8,11 +8,16 @@ import com.tomorrowit.todo.databinding.TodoRowBinding
 
 class RosterAdapter(
     private val inflater: LayoutInflater,
-    private val onCheckboxToggle: (ToDoModel) -> Unit
+    private val onCheckboxToggle: (ToDoModel) -> Unit,
+    private val onRowClick: (ToDoModel) -> Unit
 ) : ListAdapter<ToDoModel, RosterRowHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RosterRowHolder =
-        RosterRowHolder(TodoRowBinding.inflate(inflater, parent, false), onCheckboxToggle)
+        RosterRowHolder(
+            TodoRowBinding.inflate(inflater, parent, false),
+            onCheckboxToggle,
+            onRowClick
+        )
 
     override fun onBindViewHolder(holder: RosterRowHolder, position: Int) {
         holder.bind(getItem(position))

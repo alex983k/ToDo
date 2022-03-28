@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tomorrowit.todo.databinding.TodoRosterBinding
@@ -52,6 +53,10 @@ class RosterListFragment : Fragment() {
 
         adapter.submitList(motor.items)
         binding?.empty?.visibility = View.GONE
+    }
+
+    private fun display(model: ToDoModel) {
+        findNavController().navigate(RosterListFragmentDirections.displayModel())
     }
 
     override fun onDestroyView() {

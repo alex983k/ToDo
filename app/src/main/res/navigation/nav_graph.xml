@@ -8,5 +8,13 @@
     <fragment
         android:id="@+id/rosterListFragment"
         android:name="com.tomorrowit.todo.RosterListFragment"
-        android:label="RosterListFragment" />
+        android:label="@string/app_name">
+        <action
+            android:id="@+id/displayModel"
+            app:destination="@id/displayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayFragment"
+        android:name="com.tomorrowit.todo.DisplayFragment"
+        android:label="@string/app_name" />
 </navigation>

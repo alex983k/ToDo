@@ -1,12 +1,13 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     compileSdk 32
 
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
 
@@ -53,7 +54,6 @@ dependencies {
 
     //Koin for dependency inversion
     implementation "io.insert-koin:koin-android:$koin_version"
-
     //Basic libraries
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
