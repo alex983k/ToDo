@@ -62,6 +62,8 @@ class RosterListFragment : Fragment() {
         }
 
         adapter.submitList(motor.getItems())
+        binding?.empty?.visibility =
+            if (adapter.itemCount == 0) View.VISIBLE else View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
