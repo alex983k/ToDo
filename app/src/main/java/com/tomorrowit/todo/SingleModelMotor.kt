@@ -15,4 +15,8 @@ class SingleModelMotor(
 //    fun getModel2(): ToDoModel? {
 //        return repo.find(modelId)
 //    }
+
+    fun save(model: ToDoModel) {
+        repo.save(model)
+    }
 }
