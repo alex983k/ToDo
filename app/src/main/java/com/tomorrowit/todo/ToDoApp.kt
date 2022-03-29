@@ -5,11 +5,14 @@ import com.tomorrowit.todo.repo.ToDoDatabase
 import com.tomorrowit.todo.repo.ToDoRepository
 import com.tomorrowit.todo.ui.SingleModelMotor
 import com.tomorrowit.todo.ui.roster.RosterMotor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 class ToDoApp : Application() {
@@ -21,8 +24,17 @@ class ToDoApp : Application() {
      * You can of course have one or several Koin modules.
      */
     private val koinModule = module {
-        single { ToDoRepository() }
         single { ToDoDatabase.newInstance(androidContext()) }
+
+        single(named("appScope")) { CoroutineScope(SupervisorJob()) }
+
+        single {
+            ToDoRepository(
+                get<ToDoDatabase>().todoStore(),
+                get(named("appScope"))
+            )
+        }
+
         viewModel { RosterMotor(get()) }
         viewModel { (modelId: String) -> SingleModelMotor(get(), modelId) }
     }

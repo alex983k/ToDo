@@ -38,4 +38,21 @@ data class ToDoEntity(
         @Delete
         suspend fun delete(vararg entities: ToDoEntity)
     }
+
+    constructor(model: ToDoModel) : this(
+        id = model.id,
+        description = model.description,
+        isCompleted = model.isCompleted,
+        notes = model.notes,
+        createdOn = model.createdOn
+    )
+    fun toModel(): ToDoModel {
+        return ToDoModel(
+            id = id,
+            description = description,
+            isCompleted = isCompleted,
+            notes = notes,
+            createdOn = createdOn
+        )
+    }
 }
