@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="HeadlineOneAppearance" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HeadlineTwoAppearance" parent="@style/TextAppearance.AppCompat.Medium">
+    </style>
+
+    <style name="BodyAppearance" parent="@style/TextAppearance.AppCompat.Medium">
+    </style>
+</resources>

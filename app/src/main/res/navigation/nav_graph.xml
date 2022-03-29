@@ -16,5 +16,9 @@
     <fragment
         android:id="@+id/displayFragment"
         android:name="com.tomorrowit.todo.DisplayFragment"
-        android:label="@string/app_name" />
+        android:label="@string/app_name" >
+        <argument
+            android:name="modelId"
+            app:argType="string" />
+    </fragment>
 </navigation>

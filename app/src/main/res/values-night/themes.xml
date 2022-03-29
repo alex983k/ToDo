@@ -7,5 +7,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/colorPrimaryDark</item>
+        <item name="textAppearanceHeadline1">@style/HeadlineOneAppearance</item>
+        <item name="textAppearanceHeadline2">@style/HeadlineTwoAppearance</item>
+        <item name="textAppearanceBody1">@style/BodyAppearance</item>
     </style>
 </resources>
