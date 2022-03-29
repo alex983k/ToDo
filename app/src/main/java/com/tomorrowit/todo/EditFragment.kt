@@ -1,9 +1,7 @@
 package com.tomorrowit.todo
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.tomorrowit.todo.databinding.TodoEditBinding
@@ -14,6 +12,18 @@ class EditFragment : Fragment() {
     private var binding: TodoEditBinding? = null
     private val args: EditFragmentArgs by navArgs()
     private val motor: SingleModelMotor by viewModel { parametersOf(args.modelId) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.actions_edit, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
