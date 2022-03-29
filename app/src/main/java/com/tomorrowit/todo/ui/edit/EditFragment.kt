@@ -1,14 +1,16 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.ui.edit
 
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.getSystemService
-import androidx.core.view.forEachIndexed
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.tomorrowit.todo.R
+import com.tomorrowit.todo.repo.ToDoModel
 import com.tomorrowit.todo.databinding.TodoEditBinding
+import com.tomorrowit.todo.ui.SingleModelMotor
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -27,7 +29,7 @@ class EditFragment : Fragment() {
         inflater.inflate(R.menu.actions_edit, menu)
         //Show the delete option only when the ID is not null. If the id is null it means we're creating a new item.
         menu.findItem(R.id.delete).isVisible = args.modelId != null
-        
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 

@@ -1,4 +1,4 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.repo
 
 class ToDoRepository {
     var items = emptyList<ToDoModel>()

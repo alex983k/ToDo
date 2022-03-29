@@ -1,16 +1,16 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewConfiguration
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.tomorrowit.todo.R
 import com.tomorrowit.todo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

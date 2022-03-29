@@ -1,4 +1,4 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.ui.roster
 
 import android.os.Bundle
 import android.view.*
@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tomorrowit.todo.R
+import com.tomorrowit.todo.repo.ToDoModel
 import com.tomorrowit.todo.databinding.TodoRosterBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

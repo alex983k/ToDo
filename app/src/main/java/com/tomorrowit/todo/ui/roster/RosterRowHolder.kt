@@ -1,6 +1,7 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.ui.roster
 
 import androidx.recyclerview.widget.RecyclerView
+import com.tomorrowit.todo.repo.ToDoModel
 import com.tomorrowit.todo.databinding.TodoRowBinding
 
 class RosterRowHolder(

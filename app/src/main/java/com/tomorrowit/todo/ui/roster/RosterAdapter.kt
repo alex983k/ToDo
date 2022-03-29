@@ -1,9 +1,10 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.ui.roster
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.tomorrowit.todo.repo.ToDoModel
 import com.tomorrowit.todo.databinding.TodoRowBinding
 
 class RosterAdapter(

@@ -1,7 +1,8 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.tomorrowit.todo.R
 import com.tomorrowit.todo.databinding.ActivityAboutBinding
 
 class AboutActivity : AppCompatActivity() {

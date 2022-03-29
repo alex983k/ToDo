@@ -1,6 +1,9 @@
 package com.tomorrowit.todo
 
 import android.app.Application
+import com.tomorrowit.todo.repo.ToDoRepository
+import com.tomorrowit.todo.ui.SingleModelMotor
+import com.tomorrowit.todo.ui.roster.RosterMotor
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin

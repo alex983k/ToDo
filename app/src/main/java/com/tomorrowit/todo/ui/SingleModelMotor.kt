@@ -1,6 +1,8 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.ui
 
 import androidx.lifecycle.ViewModel
+import com.tomorrowit.todo.repo.ToDoModel
+import com.tomorrowit.todo.repo.ToDoRepository
 
 class SingleModelMotor(
     private val repo: ToDoRepository,

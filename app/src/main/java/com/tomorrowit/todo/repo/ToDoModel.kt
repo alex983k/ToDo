@@ -1,4 +1,4 @@
-package com.tomorrowit.todo
+package com.tomorrowit.todo.repo
 
 import java.time.Instant
 import java.util.*
