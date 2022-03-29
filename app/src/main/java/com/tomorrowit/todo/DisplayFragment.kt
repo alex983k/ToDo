@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tomorrowit.todo.databinding.TodoDisplayBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -52,6 +53,22 @@ class DisplayFragment : Fragment() {
                 notes.text = it.notes
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.edit -> {
+                edit()
+                //we return true to show that we consumed the event
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun edit() {
+        findNavController().navigate(DisplayFragmentDirections.editModel(args.modelId))
     }
 
     override fun onDestroyView() {
