@@ -1,9 +1,11 @@
 package com.tomorrowit.todo
 
 import android.app.Application
+import com.tomorrowit.todo.repo.ToDoDatabase
 import com.tomorrowit.todo.repo.ToDoRepository
 import com.tomorrowit.todo.ui.SingleModelMotor
 import com.tomorrowit.todo.ui.roster.RosterMotor
+import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -20,6 +22,7 @@ class ToDoApp : Application() {
      */
     private val koinModule = module {
         single { ToDoRepository() }
+        single { ToDoDatabase.newInstance(androidContext()) }
         viewModel { RosterMotor(get()) }
         viewModel { (modelId: String) -> SingleModelMotor(get(), modelId) }
     }
@@ -28,8 +31,9 @@ class ToDoApp : Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger(Level.ERROR)  //Here we tell Koin that if it has any messages to log, it should use Logcat.
-            modules(koinModule)         //Here we can provide one or more modules that we want Koin to support
+            androidLogger(Level.ERROR)                      //Here we tell Koin that if it has any messages to log, it should use Logcat.
+            androidContext(this@ToDoApp)      //Here we tell Koin what context to use for instantiating Room.
+            modules(koinModule)                             //Here we can provide one or more modules that we want Koin to support
         }
     }
 }
