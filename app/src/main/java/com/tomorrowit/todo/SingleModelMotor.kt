@@ -19,4 +19,8 @@ class SingleModelMotor(
     fun save(model: ToDoModel) {
         repo.save(model)
     }
+
+    fun delete(model: ToDoModel) {
+        repo.delete(model)
+    }
 }

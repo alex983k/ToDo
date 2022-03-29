@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.getSystemService
+import androidx.core.view.forEachIndexed
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,7 +25,9 @@ class EditFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actions_edit, menu)
-
+        //Show the delete option only when the ID is not null. If the id is null it means we're creating a new item.
+        menu.findItem(R.id.delete).isVisible = args.modelId != null
+        
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -32,6 +35,10 @@ class EditFragment : Fragment() {
         when (item.itemId) {
             R.id.save -> {
                 save()
+                return true
+            }
+            R.id.delete -> {
+                delete()
                 return true
             }
         }
@@ -61,6 +68,11 @@ class EditFragment : Fragment() {
         findNavController().popBackStack()
     }
 
+    private fun navToList() {
+        hideKeyboard()
+        findNavController().popBackStack(R.id.rosterListFragment, false)
+    }
+
     private fun save() {
         binding?.apply {
             val model = motor.getModel()
@@ -77,6 +89,12 @@ class EditFragment : Fragment() {
         }
 
         navToDisplay()
+    }
+
+    private fun delete() {
+        val model = motor.getModel()
+        model?.let { motor.delete(it) }
+        navToList()
     }
 
     private fun hideKeyboard() {
