@@ -89,7 +89,7 @@ class ToDoRepositoryTest {
         underTest.delete(testModel)
 
         assertThat(results[2], empty())
-        
+
         itemsJob.cancel()
     }
 }
