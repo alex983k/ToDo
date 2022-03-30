@@ -24,4 +24,5 @@
 <p>{{notes}}</p>
 {{/this}}
 ]]></string>
+    <string name="menu_share">Share</string>
 </resources>

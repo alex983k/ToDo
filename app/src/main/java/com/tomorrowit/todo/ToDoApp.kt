@@ -11,6 +11,7 @@ import com.tomorrowit.todo.ui.SingleModelMotor
 import com.tomorrowit.todo.ui.roster.RosterMotor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -55,7 +56,7 @@ class ToDoApp : Application() {
 
         single { RosterReport(androidContext(), get(), get(named("appScope"))) }
 
-        viewModel { RosterMotor(get(), get()) }
+        viewModel { RosterMotor(get(), get(), androidApplication(), get(named("appScope"))) }
         viewModel { (modelId: String) -> SingleModelMotor(get(), modelId) }
     }
 

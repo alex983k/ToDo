@@ -34,4 +34,9 @@
         android:icon="@drawable/ic_save"
         android:title="@string/menu_save"
         app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/menu_share"
+        app:showAsAction="ifRoom|withText" />
 </menu>

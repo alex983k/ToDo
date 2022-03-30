@@ -1,15 +1,18 @@
 package com.tomorrowit.todo.ui.roster
 
+import android.app.Application
 import android.net.Uri
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tomorrowit.todo.BuildConfig
 import com.tomorrowit.todo.repo.FilterMode
 import com.tomorrowit.todo.repo.ToDoModel
 import com.tomorrowit.todo.repo.ToDoRepository
 import com.tomorrowit.todo.report.RosterReport
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import java.io.File
 
 data class RosterViewState(
     val items: List<ToDoModel> = listOf(),
@@ -19,11 +22,16 @@ data class RosterViewState(
 
 sealed class Nav {
     data class ViewReport(val doc: Uri) : Nav()
+    data class ShareReport(val doc: Uri) : Nav()
 }
+
+private const val AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
 
 class RosterMotor(
     private val repo: ToDoRepository,
-    private val report: RosterReport
+    private val report: RosterReport,
+    private val context: Application,
+    private val appScope: CoroutineScope
 ) : ViewModel() {
     private val _states = MutableStateFlow(RosterViewState())
     val states = _states.asStateFlow()
@@ -56,6 +64,22 @@ class RosterMotor(
         viewModelScope.launch {
             report.generate(_states.value.items, doc)
             _navEvents.emit(Nav.ViewReport(doc))
+        }
+    }
+
+    fun shareReport() {
+        viewModelScope.launch {
+            saveForSharing()
+        }
+    }
+
+    private suspend fun saveForSharing() {
+        withContext(Dispatchers.IO + appScope.coroutineContext) {
+            val shared = File(context.cacheDir, "shared").also { it.mkdirs() }
+            val reportFile = File(shared, "report.html")
+            val doc = FileProvider.getUriForFile(context, AUTHORITY, reportFile)
+            _states.value.let { report.generate(it.items, doc) }
+            _navEvents.emit(Nav.ShareReport(doc))
         }
     }
 }
