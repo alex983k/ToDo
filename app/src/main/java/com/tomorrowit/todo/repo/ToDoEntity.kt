@@ -37,6 +37,9 @@ data class ToDoEntity(
 
         @Delete
         suspend fun delete(vararg entities: ToDoEntity)
+
+        @Query("SELECT * FROM todos WHERE isCompleted = isCompleted ORDER BY description")
+        fun filtered(isCompleted: Boolean): Flow<List<ToDoEntity>>
     }
 
     constructor(model: ToDoModel) : this(
@@ -46,6 +49,7 @@ data class ToDoEntity(
         notes = model.notes,
         createdOn = model.createdOn
     )
+
     fun toModel(): ToDoModel {
         return ToDoModel(
             id = id,
