@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AboutActivity::class.java))
             true
         }
+        R.id.settings -> {
+            findNavController(R.id.nav_host).navigate(R.id.editPrefs)
+            true
+        }
         else -> super.onOptionsItemSelected(item)
     }
 

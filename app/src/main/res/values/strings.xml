@@ -17,6 +17,10 @@
     <string name="menu_filter_outstanding">Outstanding</string>
     <string name="oops">Sorry! Something went wrong!</string>
 
+    <string name="pref_url_title">Web service URL</string>
+    <string name="web_service_url_key">webServiceUrl</string>
+    <string name="web_service_url_default">https://commonsware.com/AndExplore/2.0/items.json</string>
+
     <string name="report_template"><![CDATA[<h1>To-Do Items</h1>
 {{#this}}
 <h2>{{description}}</h2>
@@ -25,4 +29,5 @@
 {{/this}}
 ]]></string>
     <string name="menu_share">Share</string>
+    <string name="settings">Settings</string>
 </resources>
