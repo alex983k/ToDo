@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tomorrowit.todo.R
 import com.tomorrowit.todo.repo.ToDoModel
 import com.tomorrowit.todo.databinding.TodoRosterBinding
+import com.tomorrowit.todo.repo.FilterMode
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,6 +19,8 @@ class RosterListFragment : Fragment() {
     private var binding: TodoRosterBinding? = null
 
     private val motor: RosterMotor by viewModel()
+
+    private val menuMap = mutableMapOf<FilterMode, MenuItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,24 +78,35 @@ class RosterListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             motor.states.collect() { state ->
                 adapter.submitList(state.items)
-
                 binding?.apply {
-                    progressBar.visibility = if (state.isLoaded) View.GONE else View.VISIBLE
-
+                    progressBar.visibility = View.GONE
                     when {
-                        state.items.isEmpty() -> {
+                        state.items.isEmpty() && state.filterMode == FilterMode.ALL -> {
                             empty.visibility = View.VISIBLE
                             empty.setText(R.string.msg_empty)
+                        }
+                        state.items.isEmpty() -> {
+                            empty.visibility = View.VISIBLE
+                            empty.setText(R.string.msg_empty_filtered)
                         }
                         else -> empty.visibility = View.GONE
                     }
                 }
+                menuMap[state.filterMode]?.isChecked = true
             }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actions_roster, menu)
+
+        menuMap.apply {
+            put(FilterMode.ALL, menu.findItem(R.id.all))
+            put(FilterMode.COMPLETED, menu.findItem(R.id.completed))
+            put(FilterMode.OUTSTANDING, menu.findItem(R.id.outstanding))
+        }
+
+        menuMap[motor.states.value.filterMode]?.isChecked = true
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -102,7 +116,23 @@ class RosterListFragment : Fragment() {
                 add()
                 return true
             }
+            R.id.all -> {
+                item.isChecked = true
+                motor.load(FilterMode.ALL)
+                return true
+            }
+            R.id.completed -> {
+                item.isChecked = true
+                motor.load(FilterMode.COMPLETED)
+                return true
+            }
+            R.id.outstanding -> {
+                item.isChecked = true
+                motor.load(FilterMode.OUTSTANDING)
+                return true
+            }
         }
+
         return super.onOptionsItemSelected(item)
     }
 

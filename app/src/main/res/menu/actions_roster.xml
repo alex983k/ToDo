@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/filter"
+        android:icon="@drawable/ic_filter"
+        android:title="@string/menu_filter"
+        app:showAsAction="ifRoom|withText">
+
+        <menu >
+            <group
+                android:id="@+id/filter_group"
+                android:checkableBehavior="single" >
+                <item
+                    android:id="@+id/all"
+                    android:checked="true"
+                    android:title="@string/menu_filter_all" />
+                <item
+                    android:id="@+id/completed"
+                    android:title="@string/menu_filter_completed" />
+                <item
+                    android:id="@+id/outstanding"
+                    android:title="@string/menu_filter_outstanding" />
+            </group>
+        </menu>
+    </item>
     <item
         android:id="@+id/add"
         android:icon="@drawable/ic_add"
