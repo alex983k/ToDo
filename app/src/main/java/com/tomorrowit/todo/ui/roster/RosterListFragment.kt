@@ -1,7 +1,12 @@
 package com.tomorrowit.todo.ui.roster
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,13 +19,19 @@ import com.tomorrowit.todo.repo.FilterMode
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RosterListFragment : Fragment() {
+private const val TAG = "ToDo"
 
+class RosterListFragment : Fragment() {
     private var binding: TodoRosterBinding? = null
 
     private val motor: RosterMotor by viewModel()
 
     private val menuMap = mutableMapOf<FilterMode, MenuItem>()
+
+    private val createDoc =
+        registerForActivityResult(ActivityResultContracts.CreateDocument()) {
+            motor.saveReport(it)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +106,14 @@ class RosterListFragment : Fragment() {
                 menuMap[state.filterMode]?.isChecked = true
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            motor.navEvents.collect { nav ->
+                when (nav) {
+                    is Nav.ViewReport -> viewReport(nav.doc)
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -131,6 +150,10 @@ class RosterListFragment : Fragment() {
                 motor.load(FilterMode.OUTSTANDING)
                 return true
             }
+            R.id.save -> {
+                saveReport()
+                return true
+            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -142,6 +165,26 @@ class RosterListFragment : Fragment() {
 
     private fun display(model: ToDoModel) {
         findNavController().navigate(RosterListFragmentDirections.displayModel(model.id))
+    }
+
+    private fun safeStartActivity(intent: Intent) {
+        try {
+            startActivity(intent)
+        } catch (t: Throwable) {
+            Log.e(TAG, "Exception starting $intent", t)
+            Toast.makeText(requireActivity(), R.string.oops, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun viewReport(uri: Uri) {
+        safeStartActivity(
+            Intent(Intent.ACTION_VIEW, uri)
+                .setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        )
+    }
+
+    private fun saveReport() {
+        createDoc.launch("report.html")
     }
 
     override fun onDestroyView() {

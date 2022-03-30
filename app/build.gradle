@@ -51,6 +51,9 @@ dependencies {
     //This is a corresponding library used by this “desugaring” mechanism that supplies implementations of the missing logic on those older devices.
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
+    //Handlebars for generating HTML
+    implementation "com.github.jknack:handlebars:4.1.2"
+
     //RecyclerView libraries for listing UI elements
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 

@@ -7,11 +7,10 @@
         android:icon="@drawable/ic_filter"
         android:title="@string/menu_filter"
         app:showAsAction="ifRoom|withText">
-
-        <menu >
+        <menu>
             <group
                 android:id="@+id/filter_group"
-                android:checkableBehavior="single" >
+                android:checkableBehavior="single">
                 <item
                     android:id="@+id/all"
                     android:checked="true"
@@ -29,5 +28,10 @@
         android:id="@+id/add"
         android:icon="@drawable/ic_add"
         android:title="@string/menu_add"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/save"
+        android:icon="@drawable/ic_save"
+        android:title="@string/menu_save"
         app:showAsAction="ifRoom|withText" />
 </menu>

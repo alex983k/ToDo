@@ -1,8 +1,12 @@
 package com.tomorrowit.todo
 
 import android.app.Application
+import android.text.format.DateUtils
+import com.github.jknack.handlebars.Handlebars
+import com.github.jknack.handlebars.Helper
 import com.tomorrowit.todo.repo.ToDoDatabase
 import com.tomorrowit.todo.repo.ToDoRepository
+import com.tomorrowit.todo.report.RosterReport
 import com.tomorrowit.todo.ui.SingleModelMotor
 import com.tomorrowit.todo.ui.roster.RosterMotor
 import kotlinx.coroutines.CoroutineScope
@@ -14,6 +18,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import java.time.Instant
 
 class ToDoApp : Application() {
 
@@ -35,7 +40,22 @@ class ToDoApp : Application() {
             )
         }
 
-        viewModel { RosterMotor(get()) }
+        single {
+            Handlebars().apply {
+                registerHelper("dateFormat", Helper<Instant> { value, _ ->
+                    DateUtils.getRelativeDateTimeString(
+                        androidContext(),
+                        value.toEpochMilli(),
+                        DateUtils.MINUTE_IN_MILLIS,
+                        DateUtils.WEEK_IN_MILLIS, 0
+                    )
+                })
+            }
+        }
+
+        single { RosterReport(androidContext(), get(), get(named("appScope"))) }
+
+        viewModel { RosterMotor(get(), get()) }
         viewModel { (modelId: String) -> SingleModelMotor(get(), modelId) }
     }
 

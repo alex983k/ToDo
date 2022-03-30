@@ -15,4 +15,13 @@
     <string name="menu_filter_all">All</string>
     <string name="menu_filter_completed">Completed</string>
     <string name="menu_filter_outstanding">Outstanding</string>
+    <string name="oops">Sorry! Something went wrong!</string>
+
+    <string name="report_template"><![CDATA[<h1>To-Do Items</h1>
+{{#this}}
+<h2>{{description}}</h2>
+<p>{{#completed}}<b>COMPLETED</b> &mdash; {{/completed}}Created on: {{dateFormat createdOn}}</p>
+<p>{{notes}}</p>
+{{/this}}
+]]></string>
 </resources>
