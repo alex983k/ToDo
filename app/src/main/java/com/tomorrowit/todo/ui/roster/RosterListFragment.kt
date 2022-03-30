@@ -75,7 +75,10 @@ class RosterListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             motor.states.collect() { state ->
                 adapter.submitList(state.items)
+
                 binding?.apply {
+                    progressBar.visibility = if (state.isLoaded) View.GONE else View.VISIBLE
+
                     when {
                         state.items.isEmpty() -> {
                             empty.visibility = View.VISIBLE
@@ -86,8 +89,6 @@ class RosterListFragment : Fragment() {
                 }
             }
         }
-
-        binding?.empty?.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
