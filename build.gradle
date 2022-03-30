@@ -20,6 +20,7 @@ ext {
     nav_version = '2.4.1'
     koin_version = '3.1.5'
     room_version = '2.4.2'
+    moshi_version = '1.13.0'
 }
 
 task clean(type: Delete) {

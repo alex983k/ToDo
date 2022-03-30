@@ -4,13 +4,16 @@ import android.app.Application
 import android.text.format.DateUtils
 import com.github.jknack.handlebars.Handlebars
 import com.github.jknack.handlebars.Helper
+import com.tomorrowit.todo.repo.PrefsRepository
 import com.tomorrowit.todo.repo.ToDoDatabase
+import com.tomorrowit.todo.repo.ToDoRemoteDataSource
 import com.tomorrowit.todo.repo.ToDoRepository
 import com.tomorrowit.todo.report.RosterReport
 import com.tomorrowit.todo.ui.SingleModelMotor
 import com.tomorrowit.todo.ui.roster.RosterMotor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -37,7 +40,8 @@ class ToDoApp : Application() {
         single {
             ToDoRepository(
                 get<ToDoDatabase>().todoStore(),
-                get(named("appScope"))
+                get(named("appScope")),
+                get()
             )
         }
 
@@ -56,7 +60,11 @@ class ToDoApp : Application() {
 
         single { RosterReport(androidContext(), get(), get(named("appScope"))) }
 
-        viewModel { RosterMotor(get(), get(), androidApplication(), get(named("appScope"))) }
+        single { OkHttpClient.Builder().build() }
+        single { ToDoRemoteDataSource(get()) }
+        single { PrefsRepository(androidContext()) }
+
+        viewModel { RosterMotor(get(), get(), androidApplication(), get(named("appScope")), get()) }
         viewModel { (modelId: String) -> SingleModelMotor(get(), modelId) }
     }
 

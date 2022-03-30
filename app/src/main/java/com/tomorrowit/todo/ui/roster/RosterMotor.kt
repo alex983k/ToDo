@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tomorrowit.todo.BuildConfig
 import com.tomorrowit.todo.repo.FilterMode
+import com.tomorrowit.todo.repo.PrefsRepository
 import com.tomorrowit.todo.repo.ToDoModel
 import com.tomorrowit.todo.repo.ToDoRepository
 import com.tomorrowit.todo.report.RosterReport
@@ -31,7 +32,8 @@ class RosterMotor(
     private val repo: ToDoRepository,
     private val report: RosterReport,
     private val context: Application,
-    private val appScope: CoroutineScope
+    private val appScope: CoroutineScope,
+    private val prefs: PrefsRepository
 ) : ViewModel() {
     private val _states = MutableStateFlow(RosterViewState())
     val states = _states.asStateFlow()
@@ -70,6 +72,12 @@ class RosterMotor(
     fun shareReport() {
         viewModelScope.launch {
             saveForSharing()
+        }
+    }
+
+    fun importItems() {
+        viewModelScope.launch {
+            repo.importItems(prefs.loadWebServiceUrl())
         }
     }
 

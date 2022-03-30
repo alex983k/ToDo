@@ -30,4 +30,5 @@
 ]]></string>
     <string name="menu_share">Share</string>
     <string name="settings">Settings</string>
+    <string name="menu_import">Import</string>
 </resources>

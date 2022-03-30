@@ -39,4 +39,8 @@
         android:icon="@drawable/ic_share"
         android:title="@string/menu_share"
         app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/importItems"
+        android:icon="@drawable/ic_download"
+        android:title="@string/menu_import" />
 </menu>
