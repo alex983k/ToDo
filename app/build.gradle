@@ -54,6 +54,9 @@ dependencies {
     //Handlebars for generating HTML
     implementation "com.github.jknack:handlebars:4.1.2"
 
+    //WorkManager
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+
     //RecyclerView libraries for listing UI elements
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 

@@ -6,4 +6,8 @@
         android:selectAllOnFocus="true"
         android:title="@string/pref_url_title"
         app:defaultValue="@string/web_service_url_default" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/import_key"
+        android:title="@string/pref_import_title" />
 </PreferenceScreen>

@@ -19,6 +19,9 @@
     <string name="cancel">Cancel</string>
     <string name="retry">Retry</string>
 
+    <string name="pref_import_title">Import periodically</string>
+    <string name="import_key">doPeriodicImport</string>
+
     <string name="import_error_title">Import Failure</string>
     <string name="import_error_message">Something went wrong with the import!</string>
 
