@@ -16,6 +16,8 @@ import com.tomorrowit.todo.R
 import com.tomorrowit.todo.repo.ToDoModel
 import com.tomorrowit.todo.databinding.TodoRosterBinding
 import com.tomorrowit.todo.repo.FilterMode
+import com.tomorrowit.todo.ui.ErrorDialogFragment
+import com.tomorrowit.todo.ui.ErrorScenario
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -115,6 +117,25 @@ class RosterListFragment : Fragment() {
                 }
             }
         }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            motor.errorEvents.collect { error ->
+                when (error) {
+                    ErrorScenario.Import -> handleImportError()
+                }
+            }
+        }
+        findNavController()
+            .getBackStackEntry(R.id.rosterListFragment)
+            .savedStateHandle
+            .getLiveData<ErrorScenario>(ErrorDialogFragment.KEY_RETRY)
+            .observe(viewLifecycleOwner) { retryScenario ->
+                when (retryScenario) {
+                    ErrorScenario.Import -> {
+                        clearImportError()
+                        motor.importItems()
+                    }
+                }
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -203,6 +224,23 @@ class RosterListFragment : Fragment() {
                 .setType("text/html")
                 .putExtra(Intent.EXTRA_STREAM, doc)
         )
+    }
+
+    private fun handleImportError() {
+        findNavController().navigate(
+            RosterListFragmentDirections.showError(
+                getString(R.string.import_error_title),
+                getString(R.string.import_error_message),
+                ErrorScenario.Import
+            )
+        )
+    }
+
+    private fun clearImportError() {
+        findNavController()
+            .getBackStackEntry(R.id.rosterListFragment)
+            .savedStateHandle
+            .set(ErrorDialogFragment.KEY_RETRY, ErrorScenario.None)
     }
 
     override fun onDestroyView() {

@@ -16,6 +16,11 @@
     <string name="menu_filter_completed">Completed</string>
     <string name="menu_filter_outstanding">Outstanding</string>
     <string name="oops">Sorry! Something went wrong!</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+
+    <string name="import_error_title">Import Failure</string>
+    <string name="import_error_message">Something went wrong with the import!</string>
 
     <string name="pref_url_title">Web service URL</string>
     <string name="web_service_url_key">webServiceUrl</string>
